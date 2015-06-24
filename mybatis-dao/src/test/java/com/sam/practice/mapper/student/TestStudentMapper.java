@@ -1,28 +1,49 @@
 package com.sam.practice.mapper.student;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Resource;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sam.practice.model.Student;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@ContextConfiguration(locations={
+		"classpath:spring-servlet.xml", 
+		"classpath:mybatis/spring-mybatis.xml"
+		})
 public class TestStudentMapper {
 	
 	public static void main(String args[]){
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
-				"classpath:applicationContext.xml"); 
+				"classpath:mybatis/spring-mybatis.xml");
 		System.out.println(ctx);
 	}
 	
-/*	@Test
-	public void TestGetStudentCount(){
-		SqlSession session = MybatisUtil.getFactory().openSession();
+	private SqlSessionFactory factory;
+	
+	@Resource(name="sqlSessionFactory")
+	public void setFactory(SqlSessionFactory factory) {
+		this.factory = factory;
+	}
+
+	@Test
+	public void testGetStudentCount(){
+		SqlSession session = this.factory.openSession();
 		StudentMapper mapper = session.getMapper(StudentMapper.class);
-		StudentQueryVo vo = new StudentQueryVo();
-		Student s = new Student();
-		s.setId(10);
-		s.setAge(1000);
-		vo.setStudent(s);
-		System.out.println(mapper.getStudentCount(vo));
+		Student s = mapper.getStudentById(4);
+		System.out.println(s);
 		session.close();
 	}
-	
+	/*
 	@Test
 	public void testGetStudentById(){
 		SqlSession session = MybatisUtil.getFactory().openSession();
@@ -40,10 +61,11 @@ public class TestStudentMapper {
 		System.out.println(s);
 		session.close();
 	}
+	*/
 	
 	@Test
 	public void testInsertStudent(){
-		SqlSession session = MybatisUtil.getFactory().openSession();
+		SqlSession session = this.factory.openSession();
 		StudentMapper mapper = session.getMapper(StudentMapper.class);
 		Student s = new Student();
 		s.setAge(100);
@@ -51,12 +73,12 @@ public class TestStudentMapper {
 		s.setName("susi");
 		s.setWeight(200);
 		mapper.insertStudent(s);
-		//pls pay attension to commit
 		session.commit();
 		System.out.println(s);
 		session.close();
 	}
 	
+	/*
 	@Test
 	public void testDeleteStudent(){
 		SqlSession session = MybatisUtil.getFactory().openSession();

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 
-<mapper namespace="com.sam.practice.mybatisMapper.Mapper">
+<mapper namespace="com.sam.practice.mapper.student.StudentMapper">
 
 	<select id="getStudentList" parameterType="com.sam.practice.model.StudentQueryVo" 
 		resultType="student">
@@ -39,5 +39,5 @@
 	<update id="updateStudent" parameterType="student">
 		update student set name=#{name} where id=#{id}
 	</update>
-	
+
 </mapper> 

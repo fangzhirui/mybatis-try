@@ -1,5 +1,6 @@
 package com.sam.practice.model;
 
+
 public class Student {
 	
 	private int id;

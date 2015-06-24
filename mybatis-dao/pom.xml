@@ -13,7 +13,7 @@
 	<!-- Self info -->
 	<artifactId>mybatis-dao</artifactId>
 	<packaging>jar</packaging>
-	<name>mabatisDao</name>
+	<name>mybatisDao</name>
 
 
 	<dependencies>
@@ -156,7 +156,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
